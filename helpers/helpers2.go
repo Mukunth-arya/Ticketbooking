@@ -9,12 +9,12 @@ import (
 )
 
 type LoggerValue struct {
-	log.Logger
+	logger *log.Logger
 }
 
-func Datafunc(Datas log.Logger) *LoggerValue {
+func Datafunc(logger* log.Logger) *LoggerValue {
 
-	return &LoggerValue{Datas}
+	return &LoggerValue{logger}
 }
 func (l *LoggerValue) Displayget(rw http.ResponseWriter, r *http.Request) {
 
@@ -32,13 +32,10 @@ func (l *LoggerValue) Dataenter(rw http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(rw).Encode(Datagetvalue)
 }
-func (l *LoggerValue) Dataentervalue(rw http.ResponseWriter, r *http.Request) {
+func (l *LoggerValue) LivenessProbe(rw http.ResponseWriter, r *http.Request) {
 
 	rw.Header().Set("Content-Type", "application/x-www-form-urlencode")
-	var Datagetvalue model.Payments
-	err := json.NewDecoder(r.Body).Decode(&Datagetvalue)
-	if err != nil {
-		log.Fatal(err)
-	}
-	json.NewEncoder(rw).Encode(Datagetvalue)
+
+	json.NewEncoder(rw).Encode("Hello welcome!!!!")
+
 }
